@@ -12,7 +12,7 @@ open class SimpleReader(content:String) {
     public var lines = content.split("\n").map { it.trim() }
 
 
-    public fun <T>getSplitLine(index:Int, clazz:Class<T>, delim:String = ""):List<T> = lines[index].split(delim).map {
+    public fun <T>getSplitLine(index:Int, clazz:Class<T>, delim:String = " "):List<T> = lines[index].split(delim).map {
         when(clazz){
             Class.forName("java.lang.Integer") -> it.toInt()
             Class.forName("java.lang.Character") -> it.toCharArray()[0]
@@ -32,6 +32,16 @@ open class SimpleReader(content:String) {
                 else -> it
             } as T
         }}
+    }
+
+    public fun <T>getSplitLineReverse(index:Int, clazz:Class<T>, delim:String = " "):List<T> = getSplitLine(index, clazz, delim).asReversed()
+
+
+    public fun <T>getExactPosition(x:Int, y:Int, clazz:Class<T>, delim:String = " "):T?{
+        if(lines.size <= x) return null
+        if (getSplitLine(x, clazz, delim).size <= y) return null
+
+        return getSplitLine(x, clazz, delim)[y]
     }
 
 

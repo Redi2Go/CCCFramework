@@ -34,6 +34,8 @@ public class Level3 extends Level {
         simpleReader.getLines();
         List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
         int test2 = test.get(2)+ test.get(3);
+        int exactpos = simpleReader.getExactPosition(2, 2, Integer.class, " ");
+        Integer exactposShouldNull = simpleReader.getExactPosition(0, 1, Integer.class, " ");
 
 //        AStar testing
 
@@ -65,11 +67,8 @@ public class Level3 extends Level {
 
         };
 
-
         aStar.search(n1, n5);
-
         List<AStarNode> path = aStar.printPath(n5);
-
         System.out.println("Path: " + path);
 
         //ComplexReader testing
