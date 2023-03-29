@@ -1,0 +1,24 @@
+- [ ] auto check inputs per level amount
+- [ ] for each file in input directory -> simulate
+- [ ] auto use highest level input found in input directory
+- [ ] DSL:
+- [ ] input file auto read? (x_>then x lines of entities...) via schema specification (builder design pattern)
+- [ ] edfecase specification(f.e. edgeCaseReached("walked into wall") -> debug if some output is wrong, but example paased
+- [ ] edgecase builder:
+- [ ] some assertion logic (avoid x/y bugs)?
+- [ ] predefined "gameboard-level":
+- [ ] passive-entities
+- [ ] hostile-entities
+- [ ] gamefield sÃ¶ba
+- [ ] MULTIPLE stuff auf 1 field!!!
+- [ ] collectables(z.b. pacman coins)
+- [ ] bool: autocollect on passive walk on
+- [ ] observable system:
+- [ ] onmoved, ondeath, onCollectable,...
+- [ ] auto " tryer": pass generate-try und validate-try consumer (f.e. fia decryption-tables bruteforcing)
+- [ ] predefined "pathtrace" algorithm
+- [ ] Submit/download process irwie speedupn?
+- [ ] vector api (anti x/y error lol)
+- [ ] Level interface
+- [ ] IO methoden (forcierung von DSL-Reader)
+- [ ] Edge-Case methode (forcierte Definition von allen Edge-Cases)
