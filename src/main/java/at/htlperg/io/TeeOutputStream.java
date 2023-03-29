@@ -1,4 +1,4 @@
-package main.java.at.htlperg.io;
+package at.htlperg.io;
 
 import java.io.IOException;
 import java.io.OutputStream;

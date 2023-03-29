@@ -1,21 +1,30 @@
-package main.java.at.htlperg.algebra;
+package at.htlperg.algebra;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Mat<T> {
-    private final Veco<Veco<T>> content;
+    private final Veco<Veco<T>> rows;
 
-    public Mat(Veco<Veco<T>> content) {
-        this.content = content;
+    public Mat(Veco<Veco<T>> rows) {
+        this.rows = rows;
     }
 
     public Mat<T> mirrorX() {
-        return new Mat<>(content.map(Veco::reverse));
+        return new Mat<>(rows.map(Veco::reverse));
     }
 
     public Mat<T> mirrorY() {
-        return new Mat<>(content.reverse());
+        return new Mat<>(rows.reverse());
+    }
+
+    public <U> Mat<U> map(Function<T, U> function) {
+        return new Mat<>(rows.map(row -> row.map(function)));
+    }
+
+    public Veco<Veco<T>> getRows() {
+        return rows;
     }
 
     public Mat<T> transpose() {
@@ -23,7 +32,7 @@ public class Mat<T> {
         for (int x = 0; x < getWidth(); x++) {
             List<T> newY = new ArrayList<>();
             for (int y = 0; y < getHeight(); y++)
-                newY.add(content.component(y).component(x));
+                newY.add(rows.component(y).component(x));
 
             transposed.add(newY);
         }
@@ -33,16 +42,16 @@ public class Mat<T> {
 
     public Veco<T> scanline() {
         List<T> result = new ArrayList<>();
-        content.forEach(row -> row.forEach(result::add));
+        rows.forEach(row -> row.forEach(result::add));
 
         return new Veco<>(result);
     }
 
     public int getWidth() {
-        return content.x().length();
+        return rows.x().length();
     }
 
     public int getHeight() {
-        return content.length();
+        return rows.length();
     }
 }

@@ -1,9 +1,10 @@
-package main.java.at.htlperg.io;
+package at.htlperg.io;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class LevelManager {
     private final File levelsFolder;
@@ -28,7 +29,11 @@ public class LevelManager {
                 continue;
 
             redirectStdio(levelInputFile);
-            level.solveLevel(new FileInputStream(levelInputFile));
+            List<String> result = level.solveLevel(new FileInputStream(levelInputFile));
+            Files.writeString(
+                    new File(levelInputFile.getParentFile().getParentFile(), "out/" + levelInputFile.getName().replace(".in", ".out")).toPath(),
+                    String.join("\n", result)
+            );
             resetStdio();
         }
     }

@@ -1,4 +1,4 @@
-package main.java.at.htlperg.algebra;
+package at.htlperg.algebra;
 
 import java.util.Arrays;
 import java.util.List;

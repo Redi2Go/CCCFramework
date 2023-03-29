@@ -1,4 +1,4 @@
-package main.java.at.htlperg.algebra;
+package at.htlperg.algebra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class Vec<T> {
-    private final List<T> components;
+    protected final List<T> components;
 
     protected Vec(List<T> components) {
         this.components = components;
@@ -63,6 +63,10 @@ public abstract class Vec<T> {
 
     public T component(int index) {
         return components.get(index);
+    }
+
+    public List<T> toList() {
+        return new ArrayList<>(components);
     }
 
     public T x() {

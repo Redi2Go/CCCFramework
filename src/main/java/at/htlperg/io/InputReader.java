@@ -1,9 +1,9 @@
-package main.java.at.htlperg.io;
+package at.htlperg.io;
 
-import main.java.at.htlperg.algebra.Mat;
-import main.java.at.htlperg.algebra.Vecd;
-import main.java.at.htlperg.algebra.Veci;
-import main.java.at.htlperg.algebra.Veco;
+import at.htlperg.algebra.Mat;
+import at.htlperg.algebra.Vecd;
+import at.htlperg.algebra.Veci;
+import at.htlperg.algebra.Veco;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,9 +1,12 @@
-package main.java.at.htlperg.algebra;
+package at.htlperg.algebra;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Veco<T> extends Vec<T> {
     public Veco(T... components) {
@@ -16,6 +19,22 @@ public class Veco<T> extends Vec<T> {
 
     public <U> Veco<U> map(Function<T, U> function) {
         return new Veco<>(map0(function));
+    }
+
+    public <K, V> Map<K, V> toDict(Function<T, Map.Entry<K, V>> function) {
+        return Map.ofEntries(components.stream().map(function).toArray(Map.Entry[]::new));
+    }
+
+    public <K, V> Map<K, V> toDict() {
+        return Map.ofEntries(components.toArray(new Map.Entry[0]));
+    }
+
+    public Veco<T> filter(Predicate<T> predicate) {
+        return new Veco<T>(components.stream().filter(predicate).collect(Collectors.toList()));
+    }
+
+    public Veco<T> subVector(int inclusiveIndex) {
+        return new Veco<T>(components.stream().skip(inclusiveIndex).collect(Collectors.toList()));
     }
 
     public <U> Veco<U> mapIndexed(BiFunction<Integer, T, U> function) {
