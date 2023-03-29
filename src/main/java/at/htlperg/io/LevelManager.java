@@ -2,6 +2,7 @@ package at.htlperg.io;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class LevelManager {
                 continue;
 
             redirectStdio(levelInputFile);
-            List<String> result = level.solveLevel(new FileInputStream(levelInputFile));
+            List<String> result = level.solveLevel(new FileInputStream(levelInputFile), Files.readString(levelInputFile.getAbsoluteFile().toPath()));
             Files.writeString(
                     new File(levelInputFile.getParentFile().getParentFile(), "out/" + levelInputFile.getName().replace(".in", ".out")).toPath(),
                     String.join("\n", result)
@@ -42,7 +43,7 @@ public class LevelManager {
         InputStream inputStream = new FileInputStream(new File(levelFolder.getAbsolutePath(), "in/level%d_example.in".formatted(level.getLevel())));
 
         List<String> expectedResult = Files.readAllLines(new File(levelFolder, "out/level%d_example.out".formatted(level.getLevel())).toPath());
-        List<String> result = level.solveLevel(inputStream);
+        List<String> result = level.solveLevel(inputStream, Files.readString(Path.of(levelFolder.getAbsolutePath() + "/in/level%d_example.in".formatted(level.getLevel()))));
 
         int length = Integer.max(expectedResult.size(), result.size());
         for (int i = 0; i < length; i++) {

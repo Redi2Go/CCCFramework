@@ -2,11 +2,15 @@ package at.htlperg.main;
 
 import at.htlperg.algebra.Mat;
 import at.htlperg.algebra.Veco;
+import at.htlperg.astar.AStarEdge;
+import at.htlperg.astar.AStarImpl;
+import at.htlperg.astar.AStarNode;
 import at.htlperg.graph.Graph;
 import at.htlperg.graph.GraphEdge;
 import at.htlperg.graph.GraphNode;
 import at.htlperg.io.InputReader;
 import at.htlperg.io.Level;
+import at.htlperg.simplereader.SimpleReader;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +28,52 @@ public class Level3 extends Level {
     }
 
     @Override
-    public void readLevel(InputReader inputReader) {
+    public void readLevel(InputReader inputReader, SimpleReader simpleReader) {
+
+//        SimpleReader testing
+        simpleReader.getLines();
+        List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
+        int test2 = test.get(2)+ test.get(3);
+
+//        AStar testing
+
+        AStarImpl aStar = new AStarImpl();
+        AStarNode n1 = new AStarNode("Lol", 366);
+        AStarNode n2 = new AStarNode("Sheesh", 374);
+        AStarNode n3 = new AStarNode("Lol2", 380);
+        AStarNode n4 = new AStarNode("Sheesh2", 253);
+        AStarNode n5 = new AStarNode("Lol3", 178);
+
+        n1.adjacencies = new AStarEdge[]{
+                new AStarEdge(n3, 10),
+                new AStarEdge(n2, 100)
+        };
+        n3.adjacencies = new AStarEdge[]{
+                new AStarEdge(n5, 10),
+                new AStarEdge(n4, 100)
+        };
+        n2.adjacencies = new AStarEdge[]{
+                new AStarEdge(n1, 10),
+                new AStarEdge(n3, 10),
+                new AStarEdge(n4, 10),
+                new AStarEdge(n5, 10)
+        };
+        n5.adjacencies = new AStarEdge[]{
+
+        };
+        n4.adjacencies = new AStarEdge[]{
+
+        };
+
+
+        aStar.search(n1, n5);
+
+        List<AStarNode> path = aStar.printPath(n5);
+
+        System.out.println("Path: " + path);
+
+        //ComplexReader testing
+
         Mat<Integer> economistsLines = inputReader.matrix().map(Integer::parseInt);
         Map<Integer, Veco<Integer>> sweetsLines =  inputReader.matrix().map(Integer::parseInt)
                 .getRows().toDict(row -> Map.entry(row.x(), row.subVector(1)));

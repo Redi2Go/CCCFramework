@@ -1,5 +1,7 @@
 package at.htlperg.io;
 
+import at.htlperg.simplereader.SimpleReader;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -10,12 +12,14 @@ public abstract class Level {
         this.level = level;
     }
 
-    public abstract void readLevel(InputReader inputReader);
+    public abstract void readLevel(InputReader inputReader, SimpleReader simpleReader);
+//    public abstract void readLevel(InputReader inputReader);
 
     public abstract List<String> solveLevel();
 
-    public List<String> solveLevel(InputStream inputStream) {
-        readLevel(new InputReader(inputStream));
+    public List<String> solveLevel(InputStream inputStream, String content) {
+        readLevel(new InputReader(inputStream), new SimpleReader(content));
+//        readLevel(new InputReader(inputStream));
         return solveLevel();
     }
 
