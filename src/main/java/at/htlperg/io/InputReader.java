@@ -1,9 +1,6 @@
 package at.htlperg.io;
 
-import at.htlperg.algebra.Mat;
-import at.htlperg.algebra.Vecd;
-import at.htlperg.algebra.Veci;
-import at.htlperg.algebra.Veco;
+import at.htlperg.algebra.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +15,24 @@ public class InputReader {
 
     public InputReader(InputStream inputStream) {
         this.inputReader = new BufferedReader(new InputStreamReader(inputStream));
+    }
+
+    public Veco<Mat<String>> matrix3d() {
+        Veci dimensions = line().asVeci();
+        List<Mat<String>> matrices = new ArrayList<>();
+
+        for (int m = 0; m < dimensions.x(); m++) {
+            List<Veco<String>> rows = new ArrayList<>();
+
+            skip(); // index is always increasing
+            for (int l = 0; l < dimensions.y(); l++) {
+                rows.add(line().asVecs());
+            }
+
+            matrices.add(new Mat<>(new Veco<>(rows)));
+        }
+
+        return new Veco<>(matrices);
     }
 
     public Mat<String> matrix() {
@@ -42,7 +57,7 @@ public class InputReader {
         line();
     }
 
-    private record Line(String[] line) {
+    public record Line(String[] line) {
         public int asInt() {
             return Integer.parseInt(line[0]);
         }
