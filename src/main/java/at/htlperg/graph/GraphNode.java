@@ -34,4 +34,9 @@ public class GraphNode {
     public PresentationSubject getPresentationSubject() {
         return presentationSubject;
     }
+
+    @Override
+    public String toString() {
+        return getIdentifier();
+    }
 }

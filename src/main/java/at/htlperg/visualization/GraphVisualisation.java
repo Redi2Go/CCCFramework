@@ -64,6 +64,7 @@ public class GraphVisualisation extends SingleGraph {
 
         Viewer viewer = display(autoLayout);
         ViewPanel viewPanel = (ViewPanel) viewer.getDefaultView(); // ViewPanel is the view for gs-ui-swing
+//        ((JFrame) SwingUtilities.getWindowAncestor(viewPanel)).setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         this.toggleButton = new JButton(halted ? "Play" : "Stop");
         this.toggleButton.addActionListener(e -> {

@@ -2,11 +2,14 @@ package at.htlperg.main;
 
 import at.htlperg.algebra.Veci;
 import at.htlperg.graph.Graph;
+import at.htlperg.graph.GraphDijkstra;
 import at.htlperg.graph.GraphEdge;
 import at.htlperg.graph.GraphNode;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class MainExample {
     public static void main(String[] args) {
@@ -31,5 +34,21 @@ public class MainExample {
         graph.addNode(5, new GraphNode(List.of("ref")));
         graph.addNode(6, new GraphNode(List.of("ref")));
         graph.addNode(7, new GraphNode(List.of("ref")));
+
+
+        graph.addEdge(new GraphEdge<>(graphNode1, graph.getNode(3), "ref", 1));
+        graph.addEdge(new GraphEdge<>(graphNode1, graph.getNode(4), "ref", 1));
+        graph.addEdge(new GraphEdge<>(graph.getNode(4), graph.getNode(3), "ref", 1));
+        graph.addEdge(new GraphEdge<>(graph.getNode(4), graph.getNode(5), "ref", 1));
+        graph.addEdge(new GraphEdge<>(graph.getNode(5), graph.getNode(6), "ref", 1));
+        graph.addEdge(new GraphEdge<>(graph.getNode(6), graph.getNode(7), "ref", 1));
+
+        for (int i = 1; i < 7; i++) {
+            graph.getNode(i).getPresentationSubject().setLabel(graph.getNode(i).toString());
+        }
+
+        Map<GraphNode, LinkedList<GraphNode>> result = GraphDijkstra.calculateShortestPathFromSource(graphNode1, "ref");
+
+        System.out.println(result);
     }
 }
