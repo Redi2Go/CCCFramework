@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        new LevelManager(new File("src/main/resources/levels")).solveLevel(new Level3());
+        new LevelManager(new File("src/main/resources/levels")).solveLevel(v -> new Level5());
     }
 }

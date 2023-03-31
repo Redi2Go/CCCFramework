@@ -1,5 +1,6 @@
 package at.htlperg.graph;
 
+import at.htlperg.algebra.Veci;
 import at.htlperg.observable.ObservedList;
 import at.htlperg.visualization.PresentationSubject;
 
@@ -13,10 +14,20 @@ public class GraphNode {
 
     private final Map<String, ObservedList<GraphEdge<?>>> edges;
 
+    private Object value;
+
     public GraphNode(List<String> edgeTypes) {
         this.edges = new HashMap<>();
         for (String name : edgeTypes)
             edges.put(name, new ObservedList<>());
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
     }
 
     public ObservedList<GraphEdge<?>> getEdgeType(String name) {

@@ -80,4 +80,17 @@ public abstract class Vec<T> {
     public T z() {
         return component(2);
     }
+
+    @Override
+    public int hashCode() {
+        return components.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Vec<?> && ((Vec) obj).components.equals(components))
+            return false;
+        return true;
+
+    }
 }

@@ -22,3 +22,4 @@
 - [ ] Level interface
 - [ ] IO methoden (forcierung von DSL-Reader)
 - [ ] Edge-Case methode (forcierte Definition von allen Edge-Cases)
+- [ ] count matrixes first line format

@@ -44,4 +44,9 @@ public class Veci extends Vec<Integer> {
     public Veci div(Veci other) {
         return new Veci(doOperation(other, (t1, t2) -> t1 / t2));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

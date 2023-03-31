@@ -48,4 +48,18 @@ public class Veco<T> extends Vec<T> {
     public Veco<T> repeat(int count) {
         return new Veco<>(repeat0(count));
     }
+
+    public int indexOf(T t) {
+        for (int i = 0; i < components.size(); i++) {
+            if (components.get(i).equals(t))
+                return i;
+        }
+
+        return -1;
+    }
+
+    @Override
+    public String toString() {
+        return components.toString();
+    }
 }

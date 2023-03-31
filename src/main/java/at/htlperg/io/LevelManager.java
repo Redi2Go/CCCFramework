@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LevelManager {
@@ -20,9 +21,10 @@ public class LevelManager {
         this.rawFolder.mkdirs();
     }
 
-    public void solveLevel(Level level) throws IOException {
+    public void solveLevel(Function<Void, Level> factory) throws IOException {
         handleRawFiles();
 
+        Level level = factory.apply(null);
         trySolveExampleLevel(level, new File(levelsFolder, "level" + level.getLevel()));
 
         for (File levelInputFile : Objects.requireNonNull(new File(levelsFolder, "level" + level.getLevel() + "/in").listFiles())) {
@@ -30,6 +32,8 @@ public class LevelManager {
                 continue;
 
             redirectStdio(levelInputFile);
+
+            level = factory.apply(null);
             List<String> result = level.solveLevel(new FileInputStream(levelInputFile), Files.readString(levelInputFile.getAbsoluteFile().toPath()));
             Files.writeString(
                     new File(levelInputFile.getParentFile().getParentFile(), "out/" + levelInputFile.getName().replace(".in", ".out")).toPath(),
