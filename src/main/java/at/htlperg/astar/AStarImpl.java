@@ -124,32 +124,15 @@ public class AStarImpl {
     }
 
     public void search(AStarNode source, AStarNode goal) {
+        PriorityQueue<AStarNode> queue = new PriorityQueue<>(20, Comparator.comparingDouble(i -> i.getScoreF()));
+        Set<AStarNode> explored = new HashSet<>();
 
-        Set<AStarNode> explored = new HashSet<AStarNode>();
-
-        PriorityQueue<AStarNode> queue = new PriorityQueue<AStarNode>(20,
-                new Comparator<AStarNode>() {
-                    //override compare method
-                    public int compare(AStarNode i, AStarNode j) {
-                        if (i.f_scores > j.f_scores) {
-                            return 1;
-                        } else if (i.f_scores < j.f_scores) {
-                            return -1;
-                        } else {
-                            return 0;
-                        }
-                    }
-
-                }
-        );
-
-        //cost from start
-        source.g_scores = 0;
+        // cost from start
+        source.setScoreG(0);
 
         queue.add(source);
 
         boolean found = false;
-
         while ((!queue.isEmpty()) && (!found)) {
 
             //the AStarNode in having the lowest f_score value
@@ -166,15 +149,15 @@ public class AStarImpl {
             for (AStarEdge e : current.adjacencies) {
                 AStarNode child = e.target;
                 double cost = e.cost;
-                double temp_g_scores = current.g_scores + cost;
-                double temp_f_scores = temp_g_scores + child.h_scores;
+                double temp_g_scores = current.getScoreG() + cost;
+                double temp_f_scores = temp_g_scores + child.getScoreH();
 
 
                                 /*if child AStarNode has been evaluated and
                                 the newer f_score is higher, skip*/
 
                 if ((explored.contains(child)) &&
-                        (temp_f_scores >= child.f_scores)) {
+                        (temp_f_scores >= child.getScoreF())) {
                     continue;
                 }
 
@@ -182,11 +165,11 @@ public class AStarImpl {
                                 newer f_score is lower*/
 
                 else if ((!queue.contains(child)) ||
-                        (temp_f_scores < child.f_scores)) {
+                        (temp_f_scores < child.getScoreF())) {
 
-                    child.parent = current;
-                    child.g_scores = temp_g_scores;
-                    child.f_scores = temp_f_scores;
+                    child.setNext(current);
+                    child.setScoreG(temp_g_scores);
+                    child.setScoreF(temp_f_scores);
 
                     if (queue.contains(child)) {
                         queue.remove(child);
@@ -203,10 +186,10 @@ public class AStarImpl {
     }
 
     public List<AStarNode> printPath(AStarNode target) {
-        List<AStarNode> path = new ArrayList<AStarNode>();
+        List<AStarNode> path = new ArrayList<>();
 
-        for (AStarNode AStarNode = target; AStarNode != null; AStarNode = AStarNode.parent) {
-            path.add(AStarNode);
+        for (AStarNode node = target; node != null; node = node.getNext()) {
+            path.add(node);
         }
 
         Collections.reverse(path);

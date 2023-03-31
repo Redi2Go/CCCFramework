@@ -6,6 +6,7 @@ import at.htlperg.astar.AStarEdge;
 import at.htlperg.astar.AStarImpl;
 import at.htlperg.astar.AStarNode;
 import at.htlperg.graph.Graph;
+import at.htlperg.graph.GraphDijkstra;
 import at.htlperg.graph.GraphEdge;
 import at.htlperg.graph.GraphNode;
 import at.htlperg.io.InputReader;
@@ -13,10 +14,8 @@ import at.htlperg.io.Level;
 import at.htlperg.simplereader.SimpleReader;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class Level3 extends Level {
     private Graph graph;
@@ -31,47 +30,47 @@ public class Level3 extends Level {
     public void readLevel(InputReader inputReader, SimpleReader simpleReader) {
 
 //        SimpleReader testing
-        simpleReader.getLines();
-        List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
-        int test2 = test.get(2)+ test.get(3);
-        int exactpos = simpleReader.getExactPosition(2, 2, Integer.class, " ");
-        Integer exactposShouldNull = simpleReader.getExactPosition(0, 1, Integer.class, " ");
-
-//        AStar testing
-
-        AStarImpl aStar = new AStarImpl();
-        AStarNode n1 = new AStarNode("Lol", 366);
-        AStarNode n2 = new AStarNode("Sheesh", 374);
-        AStarNode n3 = new AStarNode("Lol2", 380);
-        AStarNode n4 = new AStarNode("Sheesh2", 253);
-        AStarNode n5 = new AStarNode("Lol3", 178);
-
-        n1.adjacencies = new AStarEdge[]{
-                new AStarEdge(n3, 10),
-                new AStarEdge(n2, 100)
-        };
-        n3.adjacencies = new AStarEdge[]{
-                new AStarEdge(n5, 10),
-                new AStarEdge(n4, 100)
-        };
-        n2.adjacencies = new AStarEdge[]{
-                new AStarEdge(n1, 10),
-                new AStarEdge(n3, 10),
-                new AStarEdge(n4, 10),
-                new AStarEdge(n5, 10)
-        };
-        n5.adjacencies = new AStarEdge[]{
-
-        };
-        n4.adjacencies = new AStarEdge[]{
-
-        };
-
-        aStar.search(n1, n5);
-        List<AStarNode> path = aStar.printPath(n5);
-        System.out.println("Path: " + path);
-
-        //ComplexReader testing
+//        simpleReader.getLines();
+//        List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
+//        int test2 = test.get(2)+ test.get(3);
+//        int exactpos = simpleReader.getExactPosition(2, 2, Integer.class, " ");
+//        Integer exactposShouldNull = simpleReader.getExactPosition(0, 1, Integer.class, " ");
+//
+////        AStar testing
+//
+//        AStarImpl aStar = new AStarImpl();
+//        AStarNode n1 = new AStarNode("Lol", 366);
+//        AStarNode n2 = new AStarNode("Sheesh", 374);
+//        AStarNode n3 = new AStarNode("Lol2", 380);
+//        AStarNode n4 = new AStarNode("Sheesh2", 253);
+//        AStarNode n5 = new AStarNode("Lol3", 178);
+//
+//        n1.adjacencies = new AStarEdge[]{
+//                new AStarEdge(n3, 10),
+//                new AStarEdge(n2, 100)
+//        };
+//        n3.adjacencies = new AStarEdge[]{
+//                new AStarEdge(n5, 10),
+//                new AStarEdge(n4, 100)
+//        };
+//        n2.adjacencies = new AStarEdge[]{
+//                new AStarEdge(n1, 10),
+//                new AStarEdge(n3, 10),
+//                new AStarEdge(n4, 10),
+//                new AStarEdge(n5, 10)
+//        };
+//        n5.adjacencies = new AStarEdge[]{
+//
+//        };
+//        n4.adjacencies = new AStarEdge[]{
+//
+//        };
+//
+//        aStar.search(n1, n5);
+//        List<AStarNode> path = aStar.printPath(n5);
+//        System.out.println("Path: " + path);
+//
+//        //ComplexReader testing
 
         Mat<Integer> economistsLines = inputReader.matrix().map(Integer::parseInt);
         Map<Integer, Veco<Integer>> sweetsLines =  inputReader.matrix().map(Integer::parseInt)
@@ -108,7 +107,7 @@ public class Level3 extends Level {
             economist.inventory.forEach(sweetId -> {
                 GraphNode sweetNode = graph.getNode(sweetId);
 
-                GraphEdge<Integer> graphEdge = new GraphEdge<>(economistNode, sweetNode, "owns");
+                GraphEdge<Integer> graphEdge = new GraphEdge<>(economistNode, sweetNode, "owns", 1);
                 graphEdge.getPresentationSubject().setLabel("owns");
                 graphEdge.getPresentationSubject().setNodeSize(15);
                 graphEdge.getPresentationSubject().setNodeColor(
@@ -118,6 +117,9 @@ public class Level3 extends Level {
                 graph.addEdge(graphEdge);
             });
         });
+
+        Map<GraphNode, LinkedList<GraphNode>> distances = GraphDijkstra.calculateShortestPathFromSource(graph.getNode(economists.x()), "owns");
+        System.out.println();
     }
 
     @Override

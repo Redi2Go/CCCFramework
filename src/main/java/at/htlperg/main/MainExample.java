@@ -13,7 +13,7 @@ public class MainExample {
         Graph graph = new Graph(true);
         GraphNode graphNode1 = graph.addNode(1, new GraphNode(List.of("ref")));
         GraphNode graphNode2 = graph.addNode(2, new GraphNode(List.of("ref")));
-        GraphEdge<Integer> edge = graph.addEdge(new GraphEdge<>(graphNode1, graphNode2, "ref"));
+        GraphEdge<Integer> edge = graph.addEdge(new GraphEdge<>(graphNode1, graphNode2, "ref", 1));
         edge.getPresentationSubject().setLabel("-1");
 
         graphNode1.getPresentationSubject().setLabel("test label");

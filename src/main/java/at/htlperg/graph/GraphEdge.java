@@ -8,12 +8,14 @@ public class GraphEdge<T> {
 
     private final GraphNode fromNode, toNode;
     private final ObservedObject<T> value = new ObservedObject<>();
+    private final double weight;
     private final String type;
 
-    public GraphEdge(GraphNode fromNode, GraphNode toNode, String type) {
+    public GraphEdge(GraphNode fromNode, GraphNode toNode, String type, double weight) {
         this.fromNode = fromNode;
         this.toNode = toNode;
         this.type = type;
+        this.weight = weight;
     }
 
     public String getIdentifier() {
@@ -38,5 +40,9 @@ public class GraphEdge<T> {
 
     public PresentationSubject getPresentationSubject() {
         return presentationSubject;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }
