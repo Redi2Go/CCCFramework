@@ -1,6 +1,9 @@
 package at.htlperg.io;
 
-import at.htlperg.algebra.*;
+import at.htlperg.algebra.Mat;
+import at.htlperg.algebra.Vecd;
+import at.htlperg.algebra.Veci;
+import at.htlperg.algebra.Veco;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,8 +38,33 @@ public class InputReader {
         return new Veco<>(matrices);
     }
 
+    public List<Mat<String>> matrixList() {
+        final var separator = "";
+        final var skipAmount = 1;
+
+        var matrixCount = line().asInt();
+        skip();
+        var matList = new ArrayList<Mat<String>>();
+
+        for (int i = 0; i < matrixCount; i++) {
+            List<Veco<String>> rows = new ArrayList<>();
+            skip(skipAmount);
+
+            Line line;
+            while (!(line = line()).asString().equals(separator)){
+                rows.add(line.asVecs());
+            }
+
+            matList.add(new Mat<>(new Veco<>(rows)));
+        }
+        return matList;
+    }
+
     public Mat<String> matrix() {
-        int rowCount = line().asInt();
+        return matrix(line().asInt());
+    }
+
+    public Mat<String> matrix(int rowCount) {
         List<Veco<String>> rows = new ArrayList<>();
         for (int i = 0; i < rowCount; i++) {
             rows.add(line().asVecs());
@@ -53,11 +81,21 @@ public class InputReader {
         }
     }
 
+    public void skip(int amount) {
+        for (int i = 0; i < amount; i++) {
+            skip();
+        }
+    }
+
     public void skip() {
         line();
     }
 
     public record Line(String[] line) {
+        public String asString() {
+            return String.join(" ", line);
+        }
+
         public int asInt() {
             return Integer.parseInt(line[0]);
         }

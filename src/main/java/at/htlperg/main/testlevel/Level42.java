@@ -1,4 +1,4 @@
-package at.htlperg.main;
+package at.htlperg.main.testlevel;
 
 import at.htlperg.algebra.Mat;
 import at.htlperg.algebra.Veco;

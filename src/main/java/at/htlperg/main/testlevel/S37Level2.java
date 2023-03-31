@@ -1,4 +1,4 @@
-package at.htlperg.main;
+package at.htlperg.main.testlevel;
 
 import at.htlperg.algebra.Mat;
 import at.htlperg.algebra.Veci;
@@ -6,18 +6,16 @@ import at.htlperg.algebra.Veco;
 import at.htlperg.io.InputReader;
 import at.htlperg.io.Level;
 import at.htlperg.simplereader.SimpleReader;
-import kotlin.sequences.DropWhileSequence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
-public class Level2 extends Level {
+public class S37Level2 extends Level {
     private final List<String> results = new ArrayList<>();
 
-    public Level2() {
+    public S37Level2() {
         super(2);
     }
 

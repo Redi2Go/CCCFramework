@@ -1,9 +1,8 @@
-package at.htlperg.main;
+package at.htlperg.main.testlevel;
 
 import at.htlperg.algebra.Mat;
 import at.htlperg.algebra.Veci;
 import at.htlperg.algebra.Veco;
-import at.htlperg.graph.Graph;
 import at.htlperg.io.InputReader;
 import at.htlperg.io.Level;
 import at.htlperg.simplereader.SimpleReader;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Level3 extends Level {
+public class S37Level3 extends Level {
     private final Veci[] deltas = new Veci[] {
             new Veci(-2, 0),
             new Veci(2, 0),
@@ -25,7 +24,7 @@ public class Level3 extends Level {
 
     List<String> outputs = new LinkedList<>();
 
-    public Level3() {
+    public S37Level3() {
         super(3);
     }
 
