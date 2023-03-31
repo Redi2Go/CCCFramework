@@ -23,6 +23,8 @@ open class SimpleReader(content:String) {
     public fun getRange(from:Int, to:Int):List<String>{
         return lines.subList(from,to)
     }
+    public fun get(index:Int) = lines[index]
+
 
     public fun <T>getRangeSplit(from:Int, to:Int, clazz:Class<T>, delim:String=" "):List<List<T>>{
         return getRange(from,to).map { it.split(delim).map {

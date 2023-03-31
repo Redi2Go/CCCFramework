@@ -30,11 +30,14 @@ public class Level3 extends Level {
     public void readLevel(InputReader inputReader, SimpleReader simpleReader) {
 
 //        SimpleReader testing
-//        simpleReader.getLines();
-//        List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
-//        int test2 = test.get(2)+ test.get(3);
-//        int exactpos = simpleReader.getExactPosition(2, 2, Integer.class, " ");
-//        Integer exactposShouldNull = simpleReader.getExactPosition(0, 1, Integer.class, " ");
+
+        simpleReader.getLines();
+        List<Integer> test = simpleReader.getSplitLine(2, Integer.class, " ");
+        int test2 = test.get(2)+ test.get(3);
+        int exactpos = simpleReader.getExactPosition(2, 2, Integer.class, " ");
+        Integer exactposShouldNull = simpleReader.getExactPosition(0, 1, Integer.class, " ");
+
+        simpleReader.get(0);
 //
 ////        AStar testing
 //
@@ -119,7 +122,7 @@ public class Level3 extends Level {
         });
 
         Map<GraphNode, LinkedList<GraphNode>> distances = GraphDijkstra.calculateShortestPathFromSource(graph.getNode(economists.x()), "owns");
-        System.out.println();
+        System.out.println(distances);
     }
 
     @Override
